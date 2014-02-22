@@ -1,0 +1,4 @@
+BaseConfig:
+  MainWorld: world
+Chevrons:
+  REDSTONE_BLOCK: nether2

@@ -1,0 +1,5 @@
+name: ${project.name}
+version: ${project.version}
+author: welfare93
+website: https://github.com/Majncraft/ChevronPortals
+main: cz.majncraft.chevronportals.ChevronPortals
