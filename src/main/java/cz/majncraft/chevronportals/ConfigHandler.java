@@ -134,8 +134,8 @@ public class ConfigHandler {
 		        config.set("commands.info1", "Svet:");
 		        config.set("commands.info2", "Blok chevronu:");
 		        config.set("commands.info3", "Nasobic pozice:");
-		        config.set("commands.info4", "Je to nether svìt:");
-		        config.set("commands.info5", "Povolená automatická tvorba bran:");
+		        config.set("commands.info4", "Je to nether svet:");
+		        config.set("commands.info5", "Povolena automaticka tvorba bran:");
 		        config.set("commands.info6", "Muze vytacet chevrony:");
 		        config.set("commands.info7", "Ovladani vanilla brany pres ChevronPortals:");
 		        config.set("commands.info8", "Viditelny nazev:");

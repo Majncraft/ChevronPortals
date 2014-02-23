@@ -91,7 +91,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     	{
     		event1.getPlayer().sendMessage("====== NepsterCZ detekovan ======");
     		event1.getPlayer().sendMessage("|IRIS uzavren. Brana nepruchozi.|");
-    		event1.getPlayer().sendMessage("|      NETHER je jen jeden!     |");
+    		event1.getPlayer().sendMessage("|    NETHER je jen jeden!  :D   |");
     		event1.getPlayer().sendMessage("=================================");
     		event1.getPlayer().damage(0.5);
     		return false;
