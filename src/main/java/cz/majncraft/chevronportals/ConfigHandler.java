@@ -123,8 +123,8 @@ public class ConfigHandler {
 		        YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
 		        config.set("gate.transfer", "Teleportujes se do sveta ");
 		        config.set("gate.beforeTransfer", "Brana do sveta ");
-		        config.set("commands.infoscan", "/chevron scan - skenování bukkitu pro nezname svety");
-		        config.set("commands.infomain", "/chevron mainworld {new mainworld} - nastaveni hlavního sveta");
+		        config.set("commands.infoscan", "/chevron scan - skenovani bukkitu pro nezname svety");
+		        config.set("commands.infomain", "/chevron mainworld {new mainworld} - nastaveni hlavniho sveta");
 		        config.set("commands.infoinfo", "/chevron info [world] - info o svete");
 		        config.set("commands.infoworld", "/chevron set [world] [type] [data] - nastaveni vlastnosti svetu");
 		        config.set("commands.inforeload", "/chevron reload - restart pluginu");
