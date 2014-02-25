@@ -155,9 +155,6 @@ public class ConfigHandler {
 		        YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
 		        config.set("gate.transfer", "Teleporting to world ");
 		        config.set("gate.beforeTransfer", "Gate to world ");
-		        config.set("commands.scaninfo", "");
-		        config.set("commands.", "");
-		        config.set("commands.", "");
 		        config.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
