@@ -8,9 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPortalEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public class ChevronPortals extends JavaPlugin implements Listener {
 	
@@ -43,13 +45,25 @@ public class ChevronPortals extends JavaPlugin implements Listener {
         ConfigHandler.load(this.getDataFolder());
         
     }
+    @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
+    public void onEntityPortal(EntityPortalEvent event1)
+    {
+    	if(event1.getEntity()==null)
+    		return;
+    	UnitedPortalEvent ev=new UnitedPortalEvent(event1);
+    	if(!chevronFinder(ev))
+    	{
+    		gateHandler(ev);
+    	}
+    }
     
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
     public void onPlayerPortal(PlayerPortalEvent event1)
     {
-    	if(!chevronFinder(event1))
+    	UnitedPortalEvent ev=new UnitedPortalEvent(event1);
+    	if(!chevronFinder(ev))
     	{
-    		if(gateHandler(event1))
+    		if(gateHandler(ev))
     		{
     	    		ChevronWorld b=AddressBook.readAddress(event1.getTo().getWorld().getName());
     	    		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
@@ -61,7 +75,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     	}
     }
-    private boolean gateHandler(PlayerPortalEvent event1)
+    private boolean gateHandler(UnitedPortalEvent event1)
     {
     	if(AddressBook.readAddress(event1.getFrom().getWorld().getName()).isHandled())
     	{
@@ -74,7 +88,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     	return false;
     }
     
-    private boolean chevronFinder(PlayerPortalEvent event1)
+    private boolean chevronFinder(UnitedPortalEvent event1)
     {
     	if(!active||event1==null || event1.getCause()!=TeleportCause.NETHER_PORTAL || !AddressBook.readAddress(event1.getFrom().getWorld().getName()).canDial())
     	{
