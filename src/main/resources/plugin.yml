@@ -3,20 +3,19 @@ version: ${project.version}
 author: welfare93
 website: https://github.com/Majncraft/ChevronPortals
 main: cz.majncraft.chevronportals.ChevronPortals
- commands:
-   chevron:
-     aliases: [chevrons, chevronportals]
-     permission: chevronportals.op
- 
- permissions:
-   chevronportals.op.*:
-     description: Gives access to all op commands
-     children:
-       inferno.scan: true
-       inferno.reload: true
-   chevronportals.op.scan:
-     description: Allows you to scan for new worlds
-     default: true
-   chevronportals.op.reload:
-     description: Allows you to reload plugin
-     default: true
+commands:
+  chevron:
+    aliases: [chevrons, chevronportals]
+    permission: chevronportals.op
+permissions:
+  chevronportals.op.*:
+    description: Gives access to all op commands
+    children:
+      inferno.scan: true
+      inferno.reload: true
+  chevronportals.op.scan:
+    description: Allows you to scan for new worlds
+    default: true
+  chevronportals.op.reload:
+    description: Allows you to reload plugin
+    default: true
