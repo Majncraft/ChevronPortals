@@ -131,7 +131,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
 		   a.sendMessage(ConfigHandler.lng.get("commands.infoinfo"));
 		   a.sendMessage(ConfigHandler.lng.get("commands.infoworld"));
 	   }
-	   else if(d[0].equals("scan") && a.hasPermission("chevronportals.mod.scan"))
+	   else if(d[0].equals("scan") && a.hasPermission("chevronportals.op.scan"))
 	   {
 		   ConfigHandler.scanWorlds();
 		   a.sendMessage("ChevronPortals - scan complete.");
