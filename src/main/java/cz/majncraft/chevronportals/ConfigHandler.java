@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -31,7 +30,7 @@ public class ConfigHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        ChevronPortals.instance.mainworld=config.getString("mainworld");
+        ChevronPortals.mainworld=config.getString("mainworld");
         if(config.contains("worlds"))
         for(String a:config.getConfigurationSection("worlds").getKeys(false))
         {

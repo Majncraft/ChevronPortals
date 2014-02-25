@@ -3,14 +3,12 @@ package cz.majncraft.chevronportals;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.TravelAgent;
-
+@Deprecated
 public class TravelingAgency implements TravelAgent {
 
-	private Location from;
 	private ChevronWorld to;
 	public TravelingAgency(Location from, ChevronWorld to)
 	{
-		this.from=from;
 	}
 	@Override
 	public boolean createPortal(Location arg0) {

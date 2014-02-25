@@ -1,20 +1,10 @@
 package cz.majncraft.chevronportals;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.TravelAgent;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -71,7 +61,6 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     	}
     }
-    private boolean easteregg=true;
     private boolean gateHandler(PlayerPortalEvent event1)
     {
     	if(AddressBook.readAddress(event1.getFrom().getWorld().getName()).isHandled())
@@ -87,15 +76,6 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     
     private boolean chevronFinder(PlayerPortalEvent event1)
     {
-    	if(event1.getPlayer().getDisplayName().equals("NepsterCZ") && easteregg)
-    	{
-    		event1.getPlayer().sendMessage("====== NepsterCZ detekovan ======");
-    		event1.getPlayer().sendMessage("|IRIS uzavren. Brana nepruchozi.|");
-    		event1.getPlayer().sendMessage("|    NETHER je jen jeden!  :D   |");
-    		event1.getPlayer().sendMessage("=================================");
-    		event1.getPlayer().damage(0.5);
-    		return false;
-    	}
     	if(!active||event1==null || event1.getCause()!=TeleportCause.NETHER_PORTAL || !AddressBook.readAddress(event1.getFrom().getWorld().getName()).canDial())
     	{
     		return false;

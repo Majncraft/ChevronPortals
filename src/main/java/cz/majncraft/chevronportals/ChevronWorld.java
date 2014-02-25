@@ -2,7 +2,6 @@ package cz.majncraft.chevronportals;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 
 public class ChevronWorld {
