@@ -8,7 +8,7 @@ public class ChevronWorld {
 
 	private boolean nether,creategate,handlenormal,dialing=false;
 	private String gateMaterial=null;
-	private float multiplier;
+	private float multiplier=1;
 	private String world;
 	private String name;
 	public static ChevronWorld Default()
@@ -17,14 +17,9 @@ public class ChevronWorld {
 	}
 	public Location projection(Location arg0)
 	{
-		Bukkit.broadcastMessage("this:"+this.multiplier);
-		Bukkit.broadcastMessage("that:"+AddressBook.readAddress(arg0.getWorld().getName()).multiplier);
 		float d=this.multiplier/AddressBook.readAddress(arg0.getWorld().getName()).multiplier;
-		Bukkit.broadcastMessage("d:"+d);
 		int x=(int)Math.floor(arg0.getBlockX()*d);
 		int z=(int)Math.floor( arg0.getBlockZ()*d);
-		Bukkit.broadcastMessage("x:"+x);
-		Bukkit.broadcastMessage("z:"+z);
 		int y=((this.isNether() && arg0.getBlockY()>128)? 0:arg0.getBlockY() );
 		return new Location(this.getWorld(),x,y,z);
 	}
