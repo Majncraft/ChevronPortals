@@ -18,6 +18,14 @@ public class ChevronWorld {
 	public Location projection(Location arg0)
 	{
 		float d=this.multiplier/AddressBook.readAddress(arg0.getWorld().getName()).multiplier;
+		if(d==Float.NEGATIVE_INFINITY || d==Float.POSITIVE_INFINITY)
+		{
+			d=1;
+			if(this.nether && !AddressBook.readAddress(arg0.getWorld().getName()).nether)
+				d=0.125;
+			if(!this.nether && AddressBook.readAddress(arg0.getWorld().getName()).nether)
+				d=8;
+		}
 		int x=(int)Math.floor(arg0.getBlockX()*d);
 		int z=(int)Math.floor( arg0.getBlockZ()*d);
 		int y=((this.isNether() && arg0.getBlockY()>128)? 0:arg0.getBlockY() );
