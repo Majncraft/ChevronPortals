@@ -37,9 +37,9 @@ public class ConfigHandler {
         	String c1="NONE";
         	if(config.isSet("worlds."+a+".GateMaterial"))
         		c1=config.getString("worlds."+a+".GateMaterial");
-        	float c2=1;
+        	double c2=1;
         	if(config.isSet("worlds."+a+".Multiplier"))
-        		c2=config.getInt("worlds."+a+".Multiplier");
+        		c2=config.getDouble("worlds."+a+".Multiplier");
         	Boolean c3=false;
         	if(config.isSet("worlds."+a+".isNether"))
         		c3=config.getBoolean("worlds."+a+".isNether");

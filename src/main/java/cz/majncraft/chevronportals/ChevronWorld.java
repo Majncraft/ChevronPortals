@@ -35,7 +35,7 @@ public class ChevronWorld {
 	{
 		return handlenormal;
 	}
-	public ChevronWorld(String name,String world,String gateMaterial,float multiplier,boolean nether,boolean creategate, boolean dialing, boolean handlenormal)
+	public ChevronWorld(String name,String world,String gateMaterial,double multiplier,boolean nether,boolean creategate, boolean dialing, boolean handlenormal)
 	{
 		this.name=name;
 		this.world=world;
