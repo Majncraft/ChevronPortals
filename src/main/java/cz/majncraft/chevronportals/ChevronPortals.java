@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import cz.majncraft.chevronportals.AddressBook;
+
 
 public class ChevronPortals extends JavaPlugin implements Listener {
 	
@@ -153,6 +155,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
 	   else if(d[0].equals("reload") && a.hasPermission("chevronportals.op.reload"))
 	   {
 		   a.sendMessage(ConfigHandler.lng.get("commands.reload"));
+		   AddressBook.Clear();
 		   Init();
 		   a.sendMessage(ConfigHandler.lng.get("commands.reload2"));
 	   }

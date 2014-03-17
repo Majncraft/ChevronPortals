@@ -17,6 +17,10 @@ public class AddressBook {
 		else
 			return ChevronWorld.Default();
 	}
+	public static void Clear()
+	{
+		book.clear();
+	}
 	public static boolean containsWorld(String name)
 	{
 		return book.containsKey(name);
