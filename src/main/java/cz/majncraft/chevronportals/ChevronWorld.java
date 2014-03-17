@@ -8,7 +8,7 @@ public class ChevronWorld {
 
 	private boolean nether,creategate,handlenormal,dialing=false;
 	private String gateMaterial=null;
-	private float multiplier=1;
+	private double multiplier=1;
 	private String world;
 	private String name;
 	public static ChevronWorld Default()
@@ -17,8 +17,8 @@ public class ChevronWorld {
 	}
 	public Location projection(Location arg0)
 	{
-		float d=this.multiplier/AddressBook.readAddress(arg0.getWorld().getName()).multiplier;
-		if(d==Float.NEGATIVE_INFINITY || d==Float.POSITIVE_INFINITY)
+		double d=this.multiplier/AddressBook.readAddress(arg0.getWorld().getName()).multiplier;
+		if(d==Double.NEGATIVE_INFINITY || d==Double.POSITIVE_INFINITY)
 		{
 			d=1;
 			if(this.nether && !AddressBook.readAddress(arg0.getWorld().getName()).nether)
@@ -52,7 +52,7 @@ public class ChevronWorld {
 	}
 	public float getMultiplier()
 	{
-		return multiplier;
+		return (float)multiplier;
 	}
 	public String getName()
 	{
