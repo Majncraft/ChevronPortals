@@ -125,9 +125,14 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		{
     			if(event1.getFrom().getWorld().getBlockAt(p1.getX()+x,p1.getY()+3,p1.getZ()+z).getType().toString().equals(s.getGateMaterial()) && event1.getFrom().getWorld().getBlockAt(p2.getX()-x,p1.getY()-1,p2.getZ()-z).getType().toString().equals(s.getGateMaterial()) && event1.getFrom().getWorld().getBlockAt(p2.getX()-x,p1.getY()+3,p2.getZ()-z).getType().toString().equals(s.getGateMaterial()))
     			{
+    				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
+    				{
     				event1.setTo(s.projection(event1.getFrom()));
     				event1.useTravelAgent(true);
     	    		return true;
+    				}
+    				else
+    					return false;
     			}
     		}
     	}
