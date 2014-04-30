@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sun.istack.internal.logging.Logger;
 
 import cz.majncraft.chevronportals.AddressBook;
 
@@ -134,7 +133,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     			{
     				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
     				{
-    			    	if(debug && p2==null) this.getLogger().finest("Gate connection, sending now.");
+    			    	if(debug) this.getLogger().finest("Gate connection, sending now.");
     				event1.setTo(s.projection(event1.getFrom()));
     				event1.useTravelAgent(true);
     	    		return true;
