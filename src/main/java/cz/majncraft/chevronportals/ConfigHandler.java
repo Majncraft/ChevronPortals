@@ -18,6 +18,10 @@ public class ConfigHandler {
 		firstrun();
 		loadWorlds();
 		loadLng();
+		File f = new File(data + "/config.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
+    	if(config.isSet("debug"))
+    		ChevronPortals.debug=config.getBoolean("debug");
 		
 	}
 	public static void loadWorlds()
@@ -110,6 +114,9 @@ public class ConfigHandler {
     	{
 			try {
 				f.createNewFile();
+		        YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
+		        config.set("debug", false);
+		        config.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.sun.istack.internal.logging.Logger;
+
 import cz.majncraft.chevronportals.AddressBook;
 
 
@@ -20,6 +22,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
 	
 	public static ChevronPortals instance;
 	public static boolean active=true;
+	public static boolean debug=false;
 	public static String mainworld;
 	@Override
     public void onLoad(){
@@ -62,17 +65,20 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
     public void onPlayerPortal(PlayerPortalEvent event1)
     {
+    	if(debug) this.getLogger().finest("PlayerPortalEvent cast");
     	UnitedPortalEvent ev=new UnitedPortalEvent(event1);
     	if(!chevronFinder(ev))
     	{
     		if(gateHandler(ev))
     		{
+            	if(debug) this.getLogger().finest("PlayerPortalEvent cast - gate handler");
     	    		ChevronWorld b=AddressBook.readAddress(event1.getTo().getWorld().getName());
     	    		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     		}
     	}
     	else
     	{
+        	if(debug) this.getLogger().finest("PlayerPortalEvent cast - chevron finded");
     		ChevronWorld b=AddressBook.readAddress(event1.getTo().getWorld().getName());
     		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     	}
@@ -115,6 +121,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		p2=event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()+1);
     	else if(event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1).getType()==Material.PORTAL)
     		p2=event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1);
+
     	if(p2==null)
     		return false;
     	int x=p1.getX()-p2.getX();
@@ -127,6 +134,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     			{
     				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
     				{
+    			    	if(debug && p2==null) this.getLogger().finest("Gate connection, sending now.");
     				event1.setTo(s.projection(event1.getFrom()));
     				event1.useTravelAgent(true);
     	    		return true;
