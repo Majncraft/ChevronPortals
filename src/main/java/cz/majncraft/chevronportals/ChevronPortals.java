@@ -64,20 +64,20 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     @EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
     public void onPlayerPortal(PlayerPortalEvent event1)
     {
-    	if(debug) this.getLogger().finest("PlayerPortalEvent cast");
+    	if(debug) this.getLogger().info("PlayerPortalEvent cast");
     	UnitedPortalEvent ev=new UnitedPortalEvent(event1);
     	if(!chevronFinder(ev))
     	{
     		if(gateHandler(ev))
     		{
-            	if(debug) this.getLogger().finest("PlayerPortalEvent cast - gate handler");
+            	if(debug) this.getLogger().info("PlayerPortalEvent cast - gate handler");
     	    		ChevronWorld b=AddressBook.readAddress(event1.getTo().getWorld().getName());
     	    		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     		}
     	}
     	else
     	{
-        	if(debug) this.getLogger().finest("PlayerPortalEvent cast - chevron finded");
+        	if(debug) this.getLogger().info("PlayerPortalEvent cast - chevron finded");
     		ChevronWorld b=AddressBook.readAddress(event1.getTo().getWorld().getName());
     		event1.getPlayer().sendMessage(ConfigHandler.lng.get("gate.transfer")+(b.getName().equals("NONE")? b.getWorld().getName():b.getName()));
     	}
@@ -133,7 +133,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     			{
     				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
     				{
-    			    	if(debug) this.getLogger().finest("Gate connection, sending now.");
+    			    	if(debug) this.getLogger().info("Gate connection, sending now.");
     				event1.setTo(s.projection(event1.getFrom()));
     				event1.useTravelAgent(true);
     	    		return true;
