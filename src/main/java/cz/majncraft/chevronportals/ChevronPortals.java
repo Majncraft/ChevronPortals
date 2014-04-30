@@ -97,6 +97,7 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     
     private boolean chevronFinder(UnitedPortalEvent event1)
     {
+    	if(debug) this.getLogger().info("Teleport cause:"+event1.getCause().toString());
     	if(!active||event1==null || event1.getCause()!=TeleportCause.NETHER_PORTAL || !AddressBook.readAddress(event1.getFrom().getWorld().getName()).canDial())
     	{
     		return false;
