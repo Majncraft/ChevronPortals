@@ -103,11 +103,12 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		return false;
     	}
     	String dd=getGate(event1);
-    	if(debug) this.getLogger().info("Gate connection: "+dd);
     	for(ChevronWorld s:AddressBook.getWorlds())
     	{
+        	if(debug) this.getLogger().info("Gate connection: "+dd+" versum "+s.getGateMaterial());
     		if(dd.equals(s.getGateMaterial()))
     		{
+		    		if(debug) this.getLogger().info(s.getWorld().getName()+" w "+event1.getFrom().getWorld().getName());
     				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
     				{
     			    	if(debug) this.getLogger().info("Gate connection, sending now.");
