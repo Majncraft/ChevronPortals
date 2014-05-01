@@ -103,6 +103,8 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		return false;
     	}
     	Block p1=event1.getFrom().getBlock();
+    	if(debug) this.getLogger().info("Block p1:"+p1.getType()+" viva versum "+Material.PORTAL);
+    	if(debug) this.getLogger().info("Block p1C:"+p1.getType().name()+" viva versum "+Material.PORTAL.name());
     	while(true)
     	{
     		if(event1.getFrom().getWorld().getBlockAt(p1.getX(),p1.getY()-1,p1.getZ()).getType()==Material.PORTAL)
@@ -122,8 +124,11 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     	else if(event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1).getType()==Material.PORTAL)
     		p2=event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1);
 
+    	if(debug) this.getLogger().info("World ref:"+event1.getFrom().getWorld());
     	if(p2==null)
     		return false;
+    	if(debug) this.getLogger().info("Block p2:"+p2.getType()+" viva versum "+Material.PORTAL);
+    	if(debug) this.getLogger().info("Block p2C:"+p2.getType().name()+" viva versum "+Material.PORTAL.name());
     	int x=p1.getX()-p2.getX();
     	int z=p1.getZ()-p2.getZ();
     	for(ChevronWorld s:AddressBook.getWorlds())
@@ -145,6 +150,18 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     		}
     	}
 		return false;
+    }
+    private String getGate(UnitedPortalEvent event1)
+    {
+    	int[][] s=new int[][]{{0,0,1,-1},{-1,1,0,0}};
+    	Block b=event1.getFrom().getBlock();
+    	//Find nearest portal block
+    	if(event1.getFrom().getBlock().getType()!=Material.PORTAL)
+    	{
+    		//for()
+    	}
+    	
+    	return "";
     }
    @Override
    public boolean onCommand(CommandSender a, Command b, String c, String[] d)
