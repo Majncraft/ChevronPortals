@@ -97,7 +97,6 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     
     private boolean chevronFinder(UnitedPortalEvent event1)
     {
-    	if(debug) this.getLogger().info("Teleport cause:"+event1.getCause().toString());
     	if(!active||event1==null || event1.getCause()!=TeleportCause.NETHER_PORTAL || !AddressBook.readAddress(event1.getFrom().getWorld().getName()).canDial())
     	{
     		return false;
@@ -105,13 +104,11 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     	String dd=getGate(event1);
     	for(ChevronWorld s:AddressBook.getWorlds())
     	{
-        	if(debug) this.getLogger().info("Gate connection: "+dd+" versum "+s.getGateMaterial());
     		if(dd.equals(s.getGateMaterial()))
     		{
 		    		if(debug) this.getLogger().info(s.getWorld().getName()+" w "+event1.getFrom().getWorld().getName());
-    				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
+    				if(AddressBook.readAddress(event1.getFrom().getWorld().getName()).canDial())
     				{
-    			    	if(debug) this.getLogger().info("Gate connection, sending now.");
     				event1.setTo(s.projection(event1.getFrom()));
     				event1.useTravelAgent(true);
     	    		return true;
