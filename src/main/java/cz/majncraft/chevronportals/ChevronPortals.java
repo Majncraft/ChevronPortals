@@ -102,41 +102,12 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     	{
     		return false;
     	}
-    	Block p1=event1.getFrom().getBlock();
-    	if(debug) this.getLogger().info("Block p1:"+p1.getType()+" viva versum "+Material.PORTAL);
-    	if(debug) this.getLogger().info("Block p1C:"+p1.getType().name()+" viva versum "+Material.PORTAL.name());
-    	while(true)
-    	{
-    		if(event1.getFrom().getWorld().getBlockAt(p1.getX(),p1.getY()-1,p1.getZ()).getType()==Material.PORTAL)
-    		{
-    			p1=event1.getFrom().getWorld().getBlockAt(p1.getX(),p1.getY()-1,p1.getZ());
-    		}
-    		else
-    			break;
-    	}
-    	Block p2=null;
-    	if(event1.getFrom().getWorld().getBlockAt(p1.getX()+1, p1.getY(), p1.getZ()).getType()==Material.PORTAL)
-    		p2=event1.getFrom().getWorld().getBlockAt(p1.getX()+1, p1.getY(), p1.getZ());
-    	else if(event1.getFrom().getWorld().getBlockAt(p1.getX()-1, p1.getY(), p1.getZ()).getType()==Material.PORTAL)
-    		p2=event1.getFrom().getWorld().getBlockAt(p1.getX()-1, p1.getY(), p1.getZ());
-    	else if(event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()+1).getType()==Material.PORTAL)
-    		p2=event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()+1);
-    	else if(event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1).getType()==Material.PORTAL)
-    		p2=event1.getFrom().getWorld().getBlockAt(p1.getX(), p1.getY(), p1.getZ()-1);
-
-    	if(debug) this.getLogger().info("World ref:"+event1.getFrom().getWorld());
-    	if(p2==null)
-    		return false;
-    	if(debug) this.getLogger().info("Block p2:"+p2.getType()+" viva versum "+Material.PORTAL);
-    	if(debug) this.getLogger().info("Block p2C:"+p2.getType().name()+" viva versum "+Material.PORTAL.name());
-    	int x=p1.getX()-p2.getX();
-    	int z=p1.getZ()-p2.getZ();
+    	String dd=getGate(event1);
+    	if(debug) this.getLogger().info("Gate connection: "+dd);
     	for(ChevronWorld s:AddressBook.getWorlds())
     	{
-    		if(event1.getFrom().getWorld().getBlockAt(p1.getX()+x,p1.getY()-1,p1.getZ()+z).getType().toString().equals(s.getGateMaterial()))
+    		if(dd.equals(s.getGateMaterial()))
     		{
-    			if(event1.getFrom().getWorld().getBlockAt(p1.getX()+x,p1.getY()+3,p1.getZ()+z).getType().toString().equals(s.getGateMaterial()) && event1.getFrom().getWorld().getBlockAt(p2.getX()-x,p1.getY()-1,p2.getZ()-z).getType().toString().equals(s.getGateMaterial()) && event1.getFrom().getWorld().getBlockAt(p2.getX()-x,p1.getY()+3,p2.getZ()-z).getType().toString().equals(s.getGateMaterial()))
-    			{
     				if(s.getWorld().getName()==event1.getFrom().getWorld().getName())
     				{
     			    	if(debug) this.getLogger().info("Gate connection, sending now.");
@@ -148,19 +119,94 @@ public class ChevronPortals extends JavaPlugin implements Listener {
     					return false;
     			}
     		}
-    	}
 		return false;
     }
     private String getGate(UnitedPortalEvent event1)
     {
     	int[][] s=new int[][]{{0,0,1,-1},{-1,1,0,0}};
     	Block b=event1.getFrom().getBlock();
+    	int x=b.getX(); int y=b.getY(); int z=b.getZ();
     	//Find nearest portal block
     	if(event1.getFrom().getBlock().getType()!=Material.PORTAL)
     	{
-    		//for()
+    		for(int i=0;i<4;i++)
+    		{
+    			b=event1.getFrom().getWorld().getBlockAt(x+s[0][i], y,z+s[1][i] );
+    			if(b.getType()==Material.PORTAL)
+    				{x+=s[0][i]; z+=s[1][i];break;}
+    		}
+    		if(b.getType()!=Material.PORTAL)
+    			return "";
     	}
-    	
+    	//Get siding
+    	Block c=event1.getFrom().getWorld().getBlockAt(x+1,y,z); Block d=event1.getFrom().getWorld().getBlockAt(x-1,y,z);
+    	int[] e=new int[]{0,0};
+    	if(c.getType()==Material.PORTAL || d.getType()==Material.PORTAL)
+    	{
+    		e[0]=1;
+    	}
+    	else
+    	{
+    		c=event1.getFrom().getWorld().getBlockAt(x,y,z+1); d=event1.getFrom().getWorld().getBlockAt(x,y,z-1);
+        	if(c.getType()==Material.PORTAL || d.getType()==Material.PORTAL)
+        	{
+        		e[1]=1;
+        	}
+        	else 
+        		return "";
+    	}
+    	//Get chevron
+    	Block[] ch=new Block[4];
+    	c=d=b;
+    	while(true)
+    	{
+    		d=c;
+    		c=event1.getFrom().getWorld().getBlockAt(c.getX()+e[0],y,c.getZ()+e[1]);
+    		if(c.getType()!=Material.PORTAL)
+    		{	b=c=d;
+    			while(true)
+    			{
+    				d=c;
+    	    		c=event1.getFrom().getWorld().getBlockAt(c.getX(),c.getY()+1,c.getZ());
+    	    		if(c.getType()!=Material.PORTAL)
+    	    			{ch[0]=event1.getFrom().getWorld().getBlockAt(c.getX()+e[0],c.getY(),c.getZ()+e[1]); break;}
+    			}
+    			while(true)
+    			{
+    				d=c;
+    	    		c=event1.getFrom().getWorld().getBlockAt(c.getX(),c.getY()-1,c.getZ());
+    	    		if(c.getType()!=Material.PORTAL)
+    	    			{ch[1]=event1.getFrom().getWorld().getBlockAt(c.getX()+e[0],c.getY(),c.getZ()+e[1]); break;}
+    			}
+    			break;
+    		}
+    	}
+    	while(true)
+    	{
+    		d=c;
+    		c=event1.getFrom().getWorld().getBlockAt(c.getX()-e[0],y,c.getZ()-e[1]);
+    		if(c.getType()!=Material.PORTAL)
+    		{	b=c=d;
+    			while(true)
+    			{
+    				d=c;
+    	    		c=event1.getFrom().getWorld().getBlockAt(c.getX(),c.getY()+1,c.getZ());
+    	    		if(c.getType()!=Material.PORTAL)
+    	    			{ch[2]=event1.getFrom().getWorld().getBlockAt(c.getX()-e[0],c.getY(),c.getZ()-e[1]); break;}
+    			}
+    			while(true)
+    			{
+    				d=c;
+    	    		c=event1.getFrom().getWorld().getBlockAt(c.getX(),c.getY()-1,c.getZ());
+    	    		if(c.getType()!=Material.PORTAL)
+    	    			{ch[3]=event1.getFrom().getWorld().getBlockAt(c.getX()-e[0],c.getY(),c.getZ()-e[1]); break;}
+    			}
+    			break;
+    		}
+    	}
+    	//Same check
+    	if(ch[0].getType()==ch[1].getType()&& ch[0].getType()==ch[2].getType()&& ch[0].getType()==ch[2].getType())
+    		return ch[0].getType().toString();
     	return "";
     }
    @Override
